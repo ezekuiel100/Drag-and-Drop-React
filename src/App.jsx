@@ -24,29 +24,9 @@ function App() {
 
     let updatedCards = [...cards];
 
-    if (source === destination && source === "card1") {
-      const [removed] = updatedCards[0].splice(sourceIndex, 1);
-      updatedCards[0].splice(destinationIndex, 0, removed);
-      setCards(updatedCards);
-    }
-
-    if (source === destination && source === "card2") {
-      const [removed] = updatedCards[1].splice(sourceIndex, 1);
-      updatedCards[1].splice(destinationIndex, 0, removed);
-      setCards(updatedCards);
-    }
-
-    if (source !== destination && source === "card1") {
-      const [removed] = updatedCards[0].splice(sourceIndex, 1);
-      updatedCards[1].splice(destinationIndex, 0, removed);
-      setCards(updatedCards);
-    }
-
-    if (source !== destination && source === "card2") {
-      const [removed] = updatedCards[1].splice(sourceIndex, 1);
-      updatedCards[0].splice(destinationIndex, 0, removed);
-      setCards(updatedCards);
-    }
+    const [removed] = updatedCards[source].splice(sourceIndex, 1);
+    updatedCards[destination].splice(destinationIndex, 0, removed);
+    setCards(updatedCards);
   }
 
   return (
@@ -54,7 +34,7 @@ function App() {
       <div className="flex gap-4 h-screen justify-center items-center">
         {cards.map((card, i) => {
           return (
-            <Droppable droppableId={"card" + (i + 1)} key={i}>
+            <Droppable droppableId={`${i}`} key={i}>
               {(provided) => (
                 <div
                   className="bg-blue-200 w-96 flex flex-col gap-4  p-8"
